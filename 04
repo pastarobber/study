@@ -1,0 +1,169 @@
+<01>
+#include <iostream>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+int main()
+{
+	vector<int> quiz_score;
+	int score;
+	double sum = 0.0;
+	cout << "5명의 점수를 순서대로 입력하세요.\n\n";
+	for (int i = 1; i < 6; i++) {
+		cout << i << "번의 퀴즈 점수는? " ;
+		cin >> score;
+		quiz_score.push_back(score);
+	}
+	cout << "===========================" << endl;
+	cout << " 번호 점수  평균과의 차이" << endl;
+	for (int i = 0; i < quiz_score.size(); i++) {
+		sum += quiz_score[i];
+		cout << "   " << i + 1 << "   " << setw(2) << quiz_score[i] << setw(11) 
+			<< fixed <<setprecision(1) << quiz_score[i] - 8.0 << endl;
+	}
+
+	cout << "===========================" << endl;
+	double avg = sum / quiz_score.size();
+	cout << "평균 : " << fixed << setprecision(1) << avg << "점" << endl;
+	cout << "===========================" << endl;
+	int cnt = 0;
+	for (int i = 0; i < quiz_score.size(); i++) {
+		if (quiz_score[i] < avg)
+			cnt++;
+	}
+
+	cout << "평균미만 : " << cnt << "명" << endl;
+
+	system("pause");
+
+	return 0;
+}
+===============================================================================
+<02>
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+const int ROWS = 4; // 행의 개수
+const int COLS = 4; // 열의 개수
+
+void sumcolrow(int matrix[][COLS + 1]);
+void print(int matrix[][COLS + 1], int m, int n);
+
+
+int main()
+{
+	int matrix[ROWS + 1][COLS + 1] = {
+	  { 35, 28, 67, 73, 0 },
+	  { 25, 32, 12, 69, 0 },
+	  { 97, 56, 14, 23, 0 },
+	  { 45, 97, 48, 15, 0 },
+	  { 0 , 0 , 0 , 0 , 0 }
+	};
+
+	cout << "다음 표의 세로와 가로합, 그리고 모든 합을 구합니다.\n\n";
+	cout << "--------------------------------\n";
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLS; j++) {
+			cout << "|  " << matrix[i][j] << "  ";
+		}
+		cout << "|" << endl;
+	}
+	cout << "--------------------------------\n";
+	cout << "\n위 표의 세로와 가로합, 그리고 모든 합을\n각각 행과 열의 마지막에 구합니다.\n\n";
+	cout << "--------------------------------\n";
+		
+	sumcolrow(matrix);
+	print(matrix, ROWS, COLS);
+	cout << "--------------------------------\n\n";
+	system("pause");
+}
+
+// 가로와 세로의 합을 구하는 함수
+void sumcolrow(int matrix[][COLS + 1])
+{
+	// 가로 합
+	for (int i = 0; i < ROWS; i++) {
+		int sum = 0;
+		for (int j = 0; j < COLS; j++) {
+			sum += matrix[i][j];
+		}
+		matrix[i][COLS] = sum;
+	}
+	// 세로 합
+	for (int j = 0; j < COLS; j++) {
+		int sum = 0;
+		for (int i = 0; i < ROWS; i++) {
+			sum += matrix[i][j];
+		}
+		matrix[ROWS][j] = sum;
+	}
+	// 전체 합
+	int sum = 0;
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLS; j++) {
+			sum += matrix[i][j];
+		}
+	}
+	matrix[ROWS][COLS] = sum;
+}
+
+// 가로와 세로의 합을 출력하는 함수
+void print(int matrix[][COLS + 1], int m, int n)
+{
+	for (int i = 0; i <= m; i++) {
+		for (int j = 0; j <= n; j++) {
+			cout << "| " << setw(3) << matrix[i][j] << " ";
+		}
+		cout << "|" << endl;
+	}
+}
+===============================================================================
+<03>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+using namespace std;
+
+const int ROWS = 5; // 행의 개수
+const int COLS = 5; // 열의 개수
+
+void print(int matrix[ROWS][COLS]);
+
+int main()
+{
+	int matrix[ROWS][COLS] = {};
+	srand((unsigned)time(NULL));
+
+	for (int i = 0; i < COLS; i++) {
+		for (int j = 0; j < ROWS; j++) {
+			matrix[i][j] = rand() % 151;
+			cout << setw(3) << matrix[i][j] << "  ";
+		}
+		cout << endl;
+	}
+	cout << "\n 외각 요소만 출력한 배열\n";
+	print(matrix);
+	
+	system("pause");
+}
+// 외곽만 출력
+void print(int matrix[ROWS][COLS])
+{
+	int sum = 0;
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLS; j++) {
+			if (i == 0 || i == ROWS - 1 || j == 0 || j == COLS - 1) {
+				cout << setw(3) << matrix[i][j] << " ";
+				sum += matrix[i][j];
+			}
+			else {
+				cout << "    ";
+			}
+		}
+		cout << endl;
+	}
+	cout << "\n 2차원 배열 외곽 요소의 합은 " << sum << " 입니다.\n"; 
+}
