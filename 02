@@ -1,0 +1,139 @@
+<01>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main()
+{
+	srand((unsigned)time(NULL));
+	
+	for (int i = 0; i < 5; i++) {
+		int y = rand() % 51 + 1;
+
+		cout << "막대 #" << i+1 << "의 높이 :" << y << endl;
+		for (int x = 0; x < y; x++)
+			cout << "*";
+		cout << endl;
+	}
+	cout << "Press any key to continue" ;
+	cin.ignore();
+	cin.get();
+}
+==========================================================================
+<02>
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main()
+{
+	cout << "*****************************************************" << endl;
+	cout << "Mc Dowell's Restaurant"<<endl;
+	cout << "*****************************************************" << endl;
+	cout << "Make your Selection from the menu below : " << endl;
+	cout << "1. Regular Hambuger				$0.89" << endl;
+	cout << "2. Regular Cheesebuger				$0.99" << endl;
+	cout << "3. Fish Sandwich				$1.29" << endl;
+	cout << "4. Half-pounder with cheese			$2.49" << endl;
+	cout << "5. French fries					$0.79" << endl;
+	cout << "6. Large soft drink				$0.99" << endl;
+	cout << "*****************************************************" << endl;
+
+	
+	int selection, n;
+	double sum = 0, price, total;
+	char order;
+
+	while (1)
+	{
+		cout << " Select 1, 2, 3, 4, 5 or 6 -->";
+		cin >> selection;
+		if (selection < 1 || selection>6)
+			break;
+
+		cout << "주문할 수량을 입력하시오 -->";
+		cin >> n;
+
+		switch (selection) {
+		case 1:
+			price = 0.89;
+			break;
+		case 2:
+			price = 0.99;
+			break;
+		case 3:
+			price = 1.29;
+			break;
+		case 4:
+			price = 2.49;
+			break;
+		case 5:
+			price = 0.79;
+			break;
+		case 6:
+			price = 0.99;
+			break;
+		}
+		sum += price * n;
+
+		while (1) {
+			cout << "추가로 주문하시겠습니까?(Y/N)";
+			cin >> order;
+			if (order == 'Y' || order == 'y') {
+				break;
+			}
+			else if (order == 'N' || order == 'n') {
+				break;
+			}
+		}
+		if (order == 'N' || order == 'n') {
+			break;
+		}
+	}
+	total = sum * (1 - 0.055); // 0.945
+
+	cout << fixed << setprecision(2);
+	cout << "Please pay [$" << total << "]" << endl;
+	cout << "Thank you for eating at McDowell's." << endl;
+	cout << "Press any key to continue";
+
+	cin.ignore();
+	cin.get();
+}
+==========================================================================
+<03>
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+	int day, date, START_DAY;		// 0 일 1 월 2 화 3 수 4 목 5 금 6 토
+
+	cout << "START_DAY >>";
+	cin >> START_DAY;
+	cout << "====================" << endl;
+	cout << "일 월 화 수 목 금 토 " << endl;
+	cout << "====================" << endl;
+
+	// 첫 번째 날짜 출력하기 전에 요일에 맞는 공백 출력
+	for (day = 0; day < START_DAY; day++) {
+		cout << "   ";
+	}
+	
+	for (date = 1; date < 32; date++) {
+		if ((date + START_DAY - 1) % 7 == 0) {
+			if (date != 1) {    // 첫번째 줄은 줄바꿈 없음
+				cout << endl;
+			}
+		}
+		cout << setw(2) << date << " ";
+	}
+	cout << endl << "====================" << endl;
+	cout << "Press and key to continue";
+	cin.get();
+
+	return 0;
+}
