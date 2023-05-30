@@ -1,0 +1,18 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(string myString, string pat) {
+   /* for (int i = 0; i < myString.size(); i++)
+        myString[i] = tolower(myString[i]);
+
+    for (int i = 0; i < pat.size(); i++)
+        pat[i] = tolower(pat[i]);*/
+     std::transform(myString.begin(), myString.end(), myString.begin(), ::toupper);
+     std::transform(pat.begin(), pat.end(), pat.begin(), ::toupper);
+     if(myString.find(pat) != -1)
+        return 1;
+    return 0;
+}
